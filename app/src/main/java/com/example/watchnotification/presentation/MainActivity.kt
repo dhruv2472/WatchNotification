@@ -6,9 +6,12 @@
 
 package com.example.watchnotification.presentation
 
+import android.os.Build
+import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,6 +27,10 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.example.watchnotification.R
 import com.example.watchnotification.presentation.theme.MyApplicationTheme
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,9 +54,27 @@ fun WearApp(greetingName: String) {
                 .background(MaterialTheme.colors.background),
             verticalArrangement = Arrangement.Center
         ) {
+            CheckNotificationPermission()
             Greeting(greetingName = greetingName)
         }
     }
+}
+
+@Composable
+fun CheckNotificationPermission() {
+    if (Build.VERSION.SDK_INT >= TIRAMISU){
+        RequestNotificationPermission()
+    }
+}
+
+
+@OptIn(ExperimentalPermissionsApi::class)
+@RequiresApi(TIRAMISU)
+@Composable
+fun RequestNotificationPermission() {
+    val permissionState = rememberPermissionState(permission = android.Manifest.permission.POST_NOTIFICATIONS)
+    if (permissionState.status.isGranted) return
+    // TODO request for permission
 }
 
 @Composable
