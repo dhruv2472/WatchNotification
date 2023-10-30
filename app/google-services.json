@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "881858312039",
+    "project_id": "watchnotification-7361a",
+    "storage_bucket": "watchnotification-7361a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881858312039:android:ae7f8e9bba1b159988a1c2",
+        "android_client_info": {
+          "package_name": "com.example.watchnotification"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP4ii1aUpVnFs8dOuSgPkvx-FlLWCrGUk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
