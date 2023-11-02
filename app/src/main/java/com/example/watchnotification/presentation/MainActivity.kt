@@ -6,9 +6,11 @@
 
 package com.example.watchnotification.presentation
 
+import android.content.Intent
 import android.os.Build
 import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
@@ -30,7 +32,7 @@ import com.example.watchnotification.presentation.theme.MyApplicationTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-import com.google.accompanist.permissions.shouldShowRationale
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +57,16 @@ fun WearApp(greetingName: String) {
             verticalArrangement = Arrangement.Center
         ) {
             CheckNotificationPermission()
-            Greeting(greetingName = greetingName)
+            val intent = Intent().extras
+
+            var userName: String = stringResource(R.string.hello_world)
+
+            if (intent != null) {
+                userName = intent.getString("text").toString()
+                Log.d("username", "asdasf $userName")
+                // and get whatever type user account id is
+            }
+            Greeting(greetingName = userName)
         }
     }
 }
@@ -83,7 +94,7 @@ fun Greeting(greetingName: String) {
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center,
         color = MaterialTheme.colors.primary,
-        text = stringResource(R.string.hello_world, greetingName)
+        text = greetingName
     )
 }
 

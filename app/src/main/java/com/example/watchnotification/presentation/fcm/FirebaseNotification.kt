@@ -32,7 +32,8 @@ class FirebaseNotification : FirebaseMessagingService(){
         val title: String = remoteMessage.title.toString()
         val text: String = remoteMessage.body.toString()
 
-        val intent = Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("message", text)
+        Log.d("username ", "$text $title")
+        val intent = Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("text", text)
 
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, FLAG_IMMUTABLE)
 
@@ -42,7 +43,7 @@ class FirebaseNotification : FirebaseMessagingService(){
         val notification = NotificationCompat.Builder(this, channelId)
             .setContentTitle(title)
             .setContentText(text)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.ic_notification)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
 
